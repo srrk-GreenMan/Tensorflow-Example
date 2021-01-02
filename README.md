@@ -19,4 +19,4 @@ TF Record를 만들 수 있으며 최적화 되게 Pipeline을 구성할 수 있
 
 # ToDo
 - [x] Day1 예제 만들기
-- [] Day 2 예제 만들기
+- [ ] Day 2 예제 만들기
