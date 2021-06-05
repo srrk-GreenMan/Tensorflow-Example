@@ -24,7 +24,7 @@ train = tf.data.Dataset.from_tensor_slices(
 print(next(iter(train)))
 
 
-# 의도하지 않는 자체 레이어를 만드는 선행학습을 하겠습니다. 해당 내용은 5장에서 확인 가능합니다.
+# 의도하지 않게 자체 레이어를 만드는 선행학습을 하겠습니다. 해당 내용은 5장에서 확인 가능합니다.
 class MyLayer(tf.keras.layers.Layer):
     def __init__(self):
         super(MyLayer, self).__init__()
@@ -62,4 +62,10 @@ model.fit(
     epochs=3,
 )
 
-print(model.trainable_weights)
+for name, i in zip(['x1', 'x2'], model.trainable_weights):
+    print(name, " : ", i.numpy())
+"""
+결과는 다음과 같이 훌륭하게 나온 것을 확인할 수 있습니다. 
+x1  :  [[2.9999995]]
+x2  :  [[4.000001]]
+"""
