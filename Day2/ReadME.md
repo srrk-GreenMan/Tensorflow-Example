@@ -7,6 +7,7 @@
 ## 학습 목차  
 "1)_Build_Model.py" 에서 각 모델을 만드는 방법에 대해서 배워볼 예정입니다.   
 "2)_Load_Use_Model.py" 에서 TF에서 제공하는 Pretrain 모델을 불러 사용하는 방법에 대해 배워볼 예정입니다.  
-"3)_Interpret_Model.py" 에선 Tensorflow에서 Grad-CAM을 적용하는 방법에 대해서 확인해볼 예정입니다. 
+"3)_Interpret_Model.py" 에선 Tensorflow에서 Grad-CAM을 적용하는 방법에 대해서 확인해볼 예정입니다.   
+"4)_Multiple_inputs_outpus.py"에선 여러 개의 입력이 들어가거나 여러 개의 아웃풋이 나올 때를 대비하는 법에 대해서 배워볼 예정입니다.   
 
 "tensorflow vs pytorch" 파일에서는 각 프레임워크의 차이점을 생각나는대로 적어볼 예정입니다. 
