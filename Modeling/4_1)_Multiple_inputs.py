@@ -6,6 +6,7 @@ from tensorflow.keras import Model, Sequential, Input
 모델을 만들면 하나의 input, output을 선정하지 않는 경우가 있습니다. 이번 시간에는 그러한 문제들을 해결하는 방법에 대해서 배워보겠습니다.
 """
 
+# Multiple inputs
 # 간단한 함수 식을 추정해보겠습니다.
 # y = 3 * x1 + 4 * y1 이라는 식을 다음과 같은 데이터로 추정해보겠습니다.
 # 텐서플로우에서 multiple inputs를 넣어주기 위해선 딕셔너리 형태로 데이터를 만드는 것이 편합니다.
@@ -21,7 +22,6 @@ _x2 = np.array([j for i, j in x_set]).reshape(-1, 1)
 train = tf.data.Dataset.from_tensor_slices(
     ({'x1': _x1, 'x2': _x2}, y)
 )
-print(next(iter(train)))
 
 
 # 의도하지 않게 자체 레이어를 만드는 선행학습을 하겠습니다. 해당 내용은 5장에서 확인 가능합니다.
