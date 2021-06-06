@@ -1,4 +1,4 @@
-# Tensorflow 부수
+# Tensorflow 부수기  
 
 **텐서플로우 2.x 친구들과 친해지기?**
 
