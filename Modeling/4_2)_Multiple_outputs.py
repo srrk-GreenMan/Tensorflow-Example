@@ -20,4 +20,5 @@ def build_AE():
     x = BatchNormalization()(x)
     x = Dense(64, activation='relu')(x)
     x = BatchNormalization()(x)
+    x = Dense(64, activation='relu')(x)
 
