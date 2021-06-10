@@ -22,3 +22,5 @@ def build_AE():
     x = BatchNormalization()(x)
     x = Dense(64, activation='relu')(x)
 
+# 시간이 조금 걸리는 중
+
