@@ -15,12 +15,25 @@ x_train, x_test = x_train / 255.0, x_test / 255.0
 
 def build_AE():
     inputs = Input((28, 28, 1))
-    x = Flatten()(inputs)
-    x = Dense(256, activation='relu')(x)
-    x = BatchNormalization()(x)
-    x = Dense(64, activation='relu')(x)
-    x = BatchNormalization()(x)
-    x = Dense(64, activation='relu')(x)
+    encoder = Sequential([
+        Flatten(),
+        Dense(256, activation='relu'),
+        BatchNormalization(),
+        Dense(64, activation='relu'),
+        BatchNormalization(),
+    ])
+    decoder = Sequential([
+        Dense(64, activation='relu'),
+        BatchNormalization(),
+        Dense(256, activation='relu'),
+        BatchNormalization(),
+        Dense(28 * 28, activation='sigmoid')
+    ])
+    x = encoder(inputs)
+    output = decoder(x)
+    model = Model(inputs, output)
+    return model
+
 
 # 시간이 조금 걸리는 중
 
