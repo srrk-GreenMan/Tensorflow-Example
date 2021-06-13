@@ -5,6 +5,7 @@
 * 모델 서브클래싱(Subclassing Method)  
 
 ## 학습 목차  
+`0)_Basic_Tensorflow.py` 에서 텐서플로의 기본 연산들에 대해서 배워볼 예정입니다.   
 `"1)_Build_Model.py"` 에서 각 모델을 만드는 방법에 대해서 배워볼 예정입니다.   
 `"2)_Load_Use_Model.py"` 에서 TF에서 제공하는 Pretrain 모델을 불러 사용하는 방법에 대해 배워볼 예정입니다.  
 `"3)_Interpret_Model.py"` 에선 Tensorflow에서 Grad-CAM을 적용하는 방법에 대해서 확인해볼 예정입니다.   
