@@ -28,3 +28,16 @@ temp3 = tf.constant([1, 2, 3, 4])
 
 print(temp.trainable, temp2.trainable)
 
+# 그라디언트를 꺼내다가 쓰는 법은 다음과 같습니다.
+
+grad_ex = tf.Variable([4.])
+print(grad_ex)
+# 주의 할 점은 int32로 gradient를 계산하는 경우 None이 뜰 수 있습니다.
+# 변수가 꼭 tf.float32임을 확인해주세요!
+with tf.GradientTape() as t:
+    t.watch(grad_ex)
+    y = grad_ex * grad_ex
+dy_dx = t.gradient(y, grad_ex)
+print('Caculate Result: ', y, 'grad: ', dy_dx)
+
+
