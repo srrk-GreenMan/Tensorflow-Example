@@ -14,6 +14,8 @@ class Custom_Layer(tf.keras.layers.Layer):
         self.width = w
         self.height = h
 
+    # build함수를 상속받아서 메서드에 변수 생성을 위임할 수 있습니다.
+
     def call(self, input):
         a, b, c, d = map(lambda x: tf.fill((self.width, self.height), x), input)
         result = tf.stack([a, b, c, d])
