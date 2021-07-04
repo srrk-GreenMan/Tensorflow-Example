@@ -39,6 +39,7 @@ print(a, a_new)
 
 """
 텐서 전치하는 방법 & reshape & squeeze
+reshape 예시 : http://taewan.kim/post/transpose_reshape/
 """
 t = tf.random.uniform(shape=(3, 5))
 t = tf.transpose(t)
