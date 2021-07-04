@@ -128,7 +128,7 @@ dense_1 (Dense)                 (None, 2)            2562        global_average_
 ==================================================================================================
 """
 
-# 3. 이미 선언된 모델의 input, output을 바꿔서 진행하는 방법 -> 난이도 상
+# 3. 이미 선언된 모델의 output을 바꿔서 진행하는 방법 -> 난이도 상
 """
 참고 사항 
 tf.keras에서는 keras 처럼 model.layers.pop()이 먹히지 않음.
@@ -142,11 +142,15 @@ model.layers[-1].output means the last layer's output which is the final output,
 so in your code, you actually didn't remove any layers.
 Thanks.
 """
-#
-# model = tf.keras.applications.MobileNetV2(
-#     weights='imagenet', include_top=True
-# )
-# model.build((None, 160, 160, 3))
-# model.summary()
-# new_model_3 = Model(model.input, model.get_layer('out_relu').output, name='Third Method')
-# new_model_3.summary()
+
+model = tf.keras.applications.MobileNetV2(
+    weights='imagenet', include_top=True, input_shape=(160, 160, 3)
+)
+model.summary()
+feat_ext= Model(model.input, model.get_layer('out_relu').output, name='Third Method')
+new_model_3 = Sequential([
+    feat_ext,
+    GlobalAvgPool2D(),
+    Dense(2, activation='softmax')
+])
+new_model_3.summary()

@@ -2,6 +2,8 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow.keras import Model, Sequential, Input
+import matplotlib.pyplot as plt
+
 
 """
 Reference : https://keras.io/examples/vision/grad_cam/
@@ -35,14 +37,17 @@ def read_image(img_path, size):
     return img
 
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
+    # 다음과 같이 grad cam을 추출할 수 있는 새로운 모델을 만듭니다!
     grad_model = tf.keras.Model(
         model.input, [model.get_layer(last_conv_layer_name).output, model.output]
     )
     with tf.GradientTape() as tape:
+        # 아래와 같이 그래디언트를 저장하고
         last_conv_layer_output, preds = grad_model(img_array)
         if pred_index is None:
             pred_index = tf.argmax(preds[0])
         class_channel = preds[:, pred_index]
+    # 해당 그래디언트에서 필요 부분만 추출
     grads = tape.gradient(class_channel, last_conv_layer_output)
     # This is a vector where each entry is the mean intensity of the gradient
     # over a specific feature map channel
@@ -57,11 +62,36 @@ def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None
     heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
     return heatmap.numpy()
 
-if __name__ == "__main__":
+
+img_array = read_image(img_path, (224, 224))
+model.layers[-1].activation = None
+preds = model.predict(img_array)
+# Generate class activation heatmap
+heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name)
+heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
+plt.imsave('HeatMap.jpg', heatmap)
+
+"""
+CAM을 적용해보기!
+"""
+def cam():
+    model = tf.keras.applications.MobileNetV2(
+        weights='imagenet', include_top=True
+    )
+    feat_ext = Model(model.input, model.layers[-3].output)
+
+    weights = model.layers[-1].weights[0]
+    # 다시 사용하는 귀여운 코끼리
+    img_path = tf.keras.utils.get_file(
+        "african_elephant.jpg", "https://i.imgur.com/Bvro0YD.png"
+    )
     img_array = read_image(img_path, (224, 224))
-    model.layers[-1].activation = None
-    preds = model.predict(img_array)
-    # Generate class activation heatmap
-    heatmap = make_gradcam_heatmap(img_array, model, last_conv_layer_name)
-    heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
-    plt.imsave('HeatMap.jpg', heatmap)
+    result = model(img_array).numpy()[0]
+    result = tf.argmax(result)
+    feature = feat_ext(img_array).numpy()[0]
+    feature = tf.image.resize(feature, (224, 224))
+    weights = weights[:, result]
+    weighted_feature = weights * feature
+    weighted_feature = tf.math.reduce_sum(weighted_feature, axis=-1)
+    return weighted_feature
+

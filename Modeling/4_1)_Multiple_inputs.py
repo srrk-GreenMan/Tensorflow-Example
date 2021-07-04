@@ -8,7 +8,7 @@ from tensorflow.keras import Model, Sequential, Input
 
 # Multiple inputs
 # 간단한 함수 식을 추정해보겠습니다.
-# y = 3 * x1 + 4 * y1 이라는 식을 다음과 같은 데이터로 추정해보겠습니다.
+# y = 3 * x1 + 4 * x2 이라는 식을 다음과 같은 데이터로 추정해보겠습니다.
 # 텐서플로우에서 multiple inputs를 넣어주기 위해선 딕셔너리 형태로 데이터를 만드는 것이 편합니다.
 x1 = np.arange(0, 10, 0.1)
 x2 = np.arange(0, 10, 0.1)
